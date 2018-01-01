@@ -1,6 +1,7 @@
 const request = require('request');
-const turnStyle = setInterval(function(){ loopFn() }, 10000);
-const stopLoop = () => {clearInterval(turnStyle);}
+
+const startLoop = setInterval( () => { loopFn() }, 10000);
+const stopLoop = () => {clearInterval(startLoop);}
 
 let loopFn = () => {
 	request('http://google.com', function (error, response, body) {
