@@ -1,30 +1,26 @@
 const request = require('request');
-
-const startLoop = setInterval( () => { loopFn() }, 10000);
+const startLoop = setInterval( () => { loopFn() }, 3000);
 const stopLoop = () => {clearInterval(startLoop);}
 
 let loopFn = () => {
-	request('http://google.com', function (error, response, body) {
-		console.log('statusCode:', response && response.statusCode);
+	request('http://google.com', (err, res, body) => {
+		console.log(`statusCode: ${res.statusCode},`);
 		try {
 			if (body.includes("wait a minute")) {
 				console.log('wait a minute!');
 				stopLoop();
 			}
 			else if (body.includes("Sorry")){
-				console.log('sorry.');
 				let d = new Date();
-				console.log(d.getTime());
+				console.log(`sorry. ${d.getTime()}`);
 			}
 			else {
-				console.log('yay!');
-				console.log('body:', body);
+				console.log(`yay!\nbody: ${body}`);
 				stopLoop();
-				console.log('stopped.');
 			}
 		}//try
 		catch(err) {
-			console.log('error:', err.message);
+			console.log(`error: ${err.message},`);
 		}// catch
 	});//request
 }//loopFn
